@@ -1,0 +1,40 @@
+<div class="flex justify-between mt-28 px-4">
+    <div
+        class="flex flex-col max-w-xl w-60 p-2 gap-1 md:gap-2 justify-start items-start text-sm text-white md:text-md">
+        <h2 class="text-purple-950 text-2xl mb-3">Categories:</h2>
+        <a href="#" class="bg-purple-500 rounded px-2 py-1">
+            All Products
+        </a>
+        @for(category of categories; track category){
+
+        <a  class="bg-purple-500 rounded px-2 py-1 cursor-pointer" (click)="showCategoryProducts(category)">
+            {{category}}
+        </a>
+        }
+    </div>
+
+    <div class=" bg-gray-100 w-auto grid grid-cols-1 lg:grid-cols-4 md:grid-cols-2 justify-items-center justify-center gap-y-20 gap-x-14 mt-10 mb-5">
+        @for (productOfCategory of productByCategory; track productOfCategory.id) {
+        <div class="w-72 p-6 bg-white rounded-xl shadow-xl">
+
+            <div class="mt-4 mb-2 flex justify-between pl-4 pr-2">
+
+
+                <app-card [thumbnail]="productOfCategory.thumbnail" [title]="productOfCategory.title" [description]="productOfCategory.description"
+                    [discountPercentage]="productOfCategory.discountPercentage" [rating]="productOfCategory.rating" [price]="productOfCategory.price"
+                    [productId]="productOfCategory.id" [quantity]="productOfCategory.quantity"></app-card>
+
+            </div>
+        </div>}
+
+    </div>
+
+    <!-- წამოვიღო პროდუქტის კატეგორიები
+    დავხატო მარცხენა მხარეს ფორით
+    თავში უნდა მეწეროს ოლლ კატეკორია
+    დეფაულტად წამოვა ყველა პროდუქტი
+    კატეგორიიაზე დაჭერისას გადამისამართდება შესაბამისი ქვერი პარამით
+    კომპონენში მექნება ქუერ იპარამეტრის საბსქრიბშენი(ან როუტერ ივენთების)
+    ქვერი პარამეტრის ყოველ ცვლილებაზე ვიძახებ პროდუქტების დატის წამოღებასდა ფილტრებში ვაყან ქვერი პარამის მნიშვნელობას
+    დავამატოთ პაგინაცია
+ -->

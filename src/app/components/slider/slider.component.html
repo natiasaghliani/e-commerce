@@ -1,0 +1,12 @@
+<div class="h-[460px] rounded-lg bg-gray-300 mb-4 relative select-none group/item transition-all duration-1000">
+    <div class="transition-all ease-in-out group/edit invisible cursor-pointer absolute h-full left-0 top-0 bg-black/40 group-hover/item:visible w-1/6 flex justify-center items-center"
+        (click)="previous()">
+        <button class="text-white">&#10094;</button>
+
+    </div>
+    <img class="w-full h-full object-cover" [src]="images[currentIndex]" alt="Product Image">
+    <div class="transition-all group/edit invisible cursor-pointer absolute h-full right-0 top-0 bg-black/40 group-hover/item:visible w-1/6 flex justify-center items-center"
+        (click)="next()">
+        <button class="text-white">&#10095;</button>
+    </div>
+</div>
