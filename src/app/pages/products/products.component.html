@@ -1,40 +1,100 @@
-<div class="flex justify-between mt-28 px-4">
+<div class="lg:hidden p-2 h-14 mt-44 sm:mt-16">
+    <button (click)="toggleCategories()"
+        class="text-purple-700 bg-white border border-purple-500 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-purple-500">
+        <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+            stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
+        </svg>
+    </button>
+</div>
+<div
+    class="flex lg:flex-row justify-around max-w-screen-2xl m-auto lg:justify-between lg:mt-36 px-4 ">
     <div
-        class="flex flex-col max-w-xl w-60 p-2 gap-1 md:gap-2 justify-start items-start text-sm text-white md:text-md">
+        class="flex-col lg:w-1/6 md:w-1/4 w-1/5 p-2 gap-1 md:gap-2 justify-start items-start text-sm text-white md:text-md hidden lg:flex">
         <h2 class="text-purple-950 text-2xl mb-3">Categories:</h2>
-        <a href="#" class="bg-purple-500 rounded px-2 py-1">
+        <a class="bg-purple-500 w-40 rounded px-2 py-1 cursor-pointer" (click)="showCategoryProducts()">
             All Products
         </a>
-        @for(category of categories; track category){
-
-        <a  class="bg-purple-500 rounded px-2 py-1 cursor-pointer" (click)="showCategoryProducts(category)">
+        @for(category of categories; track category) {
+        <a class="rounded px-2 text-purple-900 py-1 w-40 border-dashed border-2 border-purple-900 cursor-pointer"
+            (click)="showCategoryProducts(category)">
             {{category}}
-        </a>
-        }
+        </a>}
     </div>
 
-    <div class=" bg-gray-100 w-auto grid grid-cols-1 lg:grid-cols-4 md:grid-cols-2 justify-items-center justify-center gap-y-20 gap-x-14 mt-10 mb-5">
+    
+
+    @if(showMobileCategories){
+    <div class="fixed inset-0 z-50 flex">
+        <div class="fixed inset-0 bg-black opacity-50" (click)="toggleCategories()"></div>
+        <div class="relative bg-white w-64 p-4 shadow-lg z-60 flex flex-col gap-2">
+            <h2 class="text-purple-950 text-2xl mb-3">Categories:</h2>
+            <a class="bg-purple-500 w-40 rounded px-2 py-1 cursor-pointer" (click)="showCategoryProducts()">
+                All Products
+            </a>
+            @for (category of categories; track category) {
+            <a class="rounded px-2 text-purple-900 py-1 w-40 border-dashed border-2 border-purple-900 cursor-pointer"
+                (click)="showCategoryProducts(category)">
+                {{category}}
+            </a>}
+        </div>
+    </div>}
+
+
+    <div
+        class=" bg-gray-100 lg:w-5/6 md:w-3/4 w-4/5 grid grid-cols-1 xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 justify-items-center justify-between gap-y-20 mt-10 mb-5">
         @for (productOfCategory of productByCategory; track productOfCategory.id) {
         <div class="w-72 p-6 bg-white rounded-xl shadow-xl">
 
-            <div class="mt-4 mb-2 flex justify-between pl-4 pr-2">
+            <div class="mt-4 mb-2 flex justify-between p-1">
 
 
-                <app-card [thumbnail]="productOfCategory.thumbnail" [title]="productOfCategory.title" [description]="productOfCategory.description"
-                    [discountPercentage]="productOfCategory.discountPercentage" [rating]="productOfCategory.rating" [price]="productOfCategory.price"
-                    [productId]="productOfCategory.id" [quantity]="productOfCategory.quantity"></app-card>
+                <app-card [thumbnail]="productOfCategory.thumbnail" [title]="productOfCategory.title"
+                    [description]="productOfCategory.description"
+                    [discountPercentage]="productOfCategory.discountPercentage" [rating]="productOfCategory.rating"
+                    [price]="productOfCategory.price" [productId]="productOfCategory.id"
+                    [quantity]="productOfCategory.quantity"></app-card>
 
             </div>
-        </div>}
+            @if (!productOfCategory.quantity) {
+            <button (click)="addToBasket(productOfCategory)"
+                class="w-full flex justify-center text-center font-medium hover:font-bold py-2 bg-pink-200 mt-5 rounded-lg cursor-pointer  hover:text-pink-950">
+                Add to basket
+            </button>
+            } @else {
+
+            <div
+                class="w-full flex justify-between text-center font-medium hover:font-bold py-2 bg-pink-300 mt-5 rounded-lg cursor-pointer px-2  hover:text-pink-950">
+                <button (click)="removeItem(productOfCategory)">
+                    <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true"
+                        xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M5 12h14" />
+                    </svg>
+                </button>
+
+                <div>{{productOfCategory.quantity}}</div>
+                <button (click)="addToBasket(productOfCategory)">
+                    <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true"
+                        xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M5 12h14m-7 7V5" />
+                    </svg>
+
+
+                </button>
+            </div>
+            }
+        </div>
+        }
 
     </div>
+</div>
+@if(total > 9) {
+<div class="max-w-screen-2xl m-auto">
 
-    <!-- წამოვიღო პროდუქტის კატეგორიები
-    დავხატო მარცხენა მხარეს ფორით
-    თავში უნდა მეწეროს ოლლ კატეკორია
-    დეფაულტად წამოვა ყველა პროდუქტი
-    კატეგორიიაზე დაჭერისას გადამისამართდება შესაბამისი ქვერი პარამით
-    კომპონენში მექნება ქუერ იპარამეტრის საბსქრიბშენი(ან როუტერ ივენთების)
-    ქვერი პარამეტრის ყოველ ცვლილებაზე ვიძახებ პროდუქტების დატის წამოღებასდა ფილტრებში ვაყან ქვერი პარამის მნიშვნელობას
-    დავამატოთ პაგინაცია
- -->
+    <mat-paginator [pageIndex]="skip" [pageSize]="limit" [hidePageSize]="true" [length]="total" aria-label="Select page"
+        (page)="pageChange($event)" class="text-black">
+    </mat-paginator>
+</div>
+}

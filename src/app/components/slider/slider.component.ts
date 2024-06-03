@@ -27,4 +27,8 @@ export class SliderComponent {
       this.currentIndex -= 1;
     }
   }
+
+  // public showSlider() {
+  //   if(this.images.length)
+  // }
 }

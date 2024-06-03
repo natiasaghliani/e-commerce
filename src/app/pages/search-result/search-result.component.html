@@ -1,0 +1,41 @@
+@if(!loader) {
+@if(resultProducts?.length) {
+
+<div
+    class=" bg-gray-100 w-auto grid grid-cols-1 lg:grid-cols-4 md:grid-cols-2 justify-items-center justify-center gap-y-20 gap-x-14 mt-10 mb-5">
+    @for (product of resultProducts; track product.id) {
+    <div class="w-72 p-6 bg-white rounded-xl shadow-xl">
+
+        <div class="mt-4 mb-2 flex justify-between pl-4 pr-2">
+
+
+            <app-card [thumbnail]="product.thumbnail" [title]="product.title" [description]="product.description"
+                [discountPercentage]="product.discountPercentage" [rating]="product.rating" [price]="product.price"
+                [productId]="product.id" [quantity]="product.quantity"></app-card>
+
+        </div>
+    </div>
+    }
+
+</div>
+    @if(total > 9) {
+    <mat-paginator [pageIndex]="skip" [pageSize]="limit" [hidePageSize]="true" [length]="total" aria-label="Select page"
+        (page)="pageChange($event)" class="text-black">
+    </mat-paginator>
+    }
+
+} @else {
+    <div class="w-full min-h-96 flex items-center justify-center">
+        <h2>Not Found</h2>
+    </div>
+}
+
+} @else {
+
+
+<div class="w-full h-full fixed top-0 left-0 bg-white opacity-75 z-50">
+    <div class="flex justify-center items-center mt-[50vh]">
+        <div class="fas fa-circle-notch fa-spin fa-5x text-violet-600"></div>
+    </div>
+</div>
+}

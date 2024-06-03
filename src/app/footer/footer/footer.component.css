@@ -1,0 +1,16 @@
+.container {
+  max-width: 800px;
+}
+
+h1, h2 {
+  margin-bottom: 16px;
+}
+
+p, ul {
+  margin-bottom: 16px;
+}
+
+ul {
+  list-style-type: disc;
+  padding-left: 20px;
+}/*# sourceMappingURL=footer.component.css.map */

@@ -7,6 +7,9 @@ import { LoginComponent } from './pages/login/login.component';
 import { ContactComponent } from './pages/contact/contact.component';
 import { AboutComponent } from './pages/about/about.component';
 import { ProductsComponent } from './pages/products/products.component';
+import { SearchResultComponent } from './pages/search-result/search-result.component';
+import { PrivacyComponent } from './pages/privacy/privacy.component';
+import { TermsComponent } from './pages/terms/terms.component';
 
 export const routes: Routes = [
     {path: '', component: HomeComponent},
@@ -17,4 +20,7 @@ export const routes: Routes = [
     {path: 'contact', component: ContactComponent},
     {path: 'about', component: AboutComponent},
     {path: 'products', component: ProductsComponent},
+    {path: 'result', component: SearchResultComponent},
+    {path: 'privacy', component: PrivacyComponent},
+    {path: 'terms', component: TermsComponent},
 ];

@@ -42,14 +42,29 @@ export class HttpService {
     return this.http.get(url);
   }
 
-  getProductByCategory(category: string = '') {
+  getProductByCategory(category: string = '', limit: string | number, skip: string | number) {
     let url = null;
     if (category) {
-      url = 'https://dummyjson.com/products/category/' + category;
+      url = `https://dummyjson.com/products/category/${category}?limit=${limit}&skip=${skip}`;
     } else {
-      url = 'https://dummyjson.com/products';
+      url = `https://dummyjson.com/products?limit=${limit}&skip=${skip}`;
     }
     return this.http.get(url);
+  }
+
+  getPagination() {
+    const url = 'https://dummyjson.com/products?limit=10&skip=10&select=title,price';
+    return this.http.get(url);
+  }
+
+  getSearchResult(keyword: string, skip: string | number) {
+    const url = `https://dummyjson.com/products/search?q=${keyword}&skip=${skip}&limit=8`;
+    return this.http.get(url);
+  }
+
+  logIn(username: string, password: string) {
+    const url = `https://dummyjson.com/auth/login`;
+    return this.http.post(url, {username, password})
   }
 
   ngOnInit() {}

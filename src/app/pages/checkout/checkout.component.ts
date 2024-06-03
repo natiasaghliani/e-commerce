@@ -20,6 +20,7 @@ export class CheckoutComponent {
   checkoutForm: FormGroup;
   public productData: any = null;
   productQuantity = 1;
+  showSuccessMessage = false;
 
   get basketProducts(): any[] {
     return this.basketService.basketProducts;
@@ -145,13 +146,15 @@ export class CheckoutComponent {
 
         this.basketService.clearCart();
       }
-      alert('Order Placed');
-      this.router.navigate([''])
+      this.showSuccessMessage = true;
 
     } else {
       alert('Form is invalid, try again.');
     }
   }
 
-  
+  closeSuccessMessage() {
+    this.showSuccessMessage = false;
+    this.router.navigate(['']);
+  }
 }

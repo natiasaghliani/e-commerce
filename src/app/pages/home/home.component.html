@@ -1,52 +1,61 @@
-<div class="w-fit mx-auto mt-20">
-    <section>
-        <img src="https://t3.ftcdn.net/jpg/04/65/46/52/360_F_465465254_1pN9MGrA831idD6zIBL7q8rnZZpUCQTy.jpg" alt="" 
-        class="w-full h-96 object-cover border rounded-md shadow-xl hover:shadow-2xl cursor-pointer">
+<div class="max-w-screen-2xl mx-auto mt-14">
+    @for(key of sectionKeys; track key) {
+
+    <section class="p-8 max-w-screen-2xl">
+        <img [src]="section[key].img" alt=""
+            class="w-full h-96 object-cover border rounded-3xl shadow-xl hover:shadow-2xl cursor-pointer">
+        <div class="w-full flex justify-between items-center flex-wrap gap-3 p-6">
+            <p class="text-4xl">{{section[key].title}}:</p>
+            <a (click)="showCategoryProducts(section[key].slug)"
+                class="text-xl text-purple-700 hover:text-purple-500 cursor-pointer">See All</a>
+        </div>
+        <div
+            class=" bg-gray-100 items-center w-auto grid grid-cols-1 lg:grid-cols-4 md:grid-cols-2 justify-items-center justify-center gap-y-20 gap-x-14 mt-10 mb-5">
+            @for (productOfCategory of section[key].products; track productOfCategory.id) {
+            <div class="w-72 p-6 bg-white rounded-xl shadow-xl">
+
+                <div class="mt-4 mb-2 flex justify-between pl-4 pr-2">
+
+
+                    <app-card [thumbnail]="productOfCategory.thumbnail" [title]="productOfCategory.title"
+                        [description]="productOfCategory.description"
+                        [discountPercentage]="productOfCategory.discountPercentage" [rating]="productOfCategory.rating"
+                        [price]="productOfCategory.price" [productId]="productOfCategory.id"
+                        [quantity]="productOfCategory.quantity"></app-card>
+
+                </div>
+                @if (!productOfCategory.quantity) {
+                <button (click)="addToBasket(productOfCategory)"
+                    class="w-full flex justify-center text-center font-medium hover:font-bold py-2 bg-pink-200 mt-5 rounded-lg cursor-pointer  hover:text-pink-950">
+                    Add to basket
+                </button>
+                } @else {
+
+                <div
+                    class="w-full flex justify-between text-center font-medium hover:font-bold py-2 bg-pink-300 mt-5 rounded-lg cursor-pointer px-2  hover:text-pink-950">
+                    <button (click)="removeItem(productOfCategory)">
+                        <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true"
+                            xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M5 12h14" />
+                        </svg>
+                    </button>
+
+                    <div>{{productOfCategory.quantity}}</div>
+                    <button (click)="addToBasket(productOfCategory)">
+                        <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true"
+                            xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M5 12h14m-7 7V5" />
+                        </svg>
+
+
+                    </button>
+                </div>
+                }
+
+            </div>}
+        </div>
     </section>
-    <div
-        class=" bg-gray-100 items-center w-auto grid grid-cols-1 lg:grid-cols-4 md:grid-cols-2 justify-items-center justify-center gap-y-20 gap-x-14 mt-10 mb-5">
-        @for (product of products; track product.id) {
-        <div 
-            class="w-72 p-6 bg-white rounded-xl shadow-xl">
-
-            <div class="mt-4 mb-2 flex justify-between pl-4 pr-2">
-
-
-                <app-card [thumbnail]="product.thumbnail" [title]="product.title" [description]="product.description"
-                    [discountPercentage]="product.discountPercentage" [rating]="product.rating"
-                    [price]="product.price" [productId]="product.id" [quantity]="product.quantity"></app-card>
-
-            </div>
-            @if (!product.quantity) {
-            <button (click)="addToBasket(product)"
-                class="w-full flex justify-center text-center font-medium hover:font-bold py-2 bg-pink-200 mt-5 rounded-lg cursor-pointer  hover:text-pink-950">
-                Add to basket
-            </button>
-            } @else {
-
-            <div
-                class="w-full flex justify-between text-center font-medium hover:font-bold py-2 bg-pink-300 mt-5 rounded-lg cursor-pointer px-2  hover:text-pink-950">
-                <button (click)="removeItem(product)">
-                    <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true"
-                        xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M5 12h14" />
-                    </svg>
-                </button>
-
-                <div>{{product.quantity}}</div>
-                <button (click)="addToBasket(product)">
-                    <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true"
-                        xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M5 12h14m-7 7V5" />
-                    </svg>
-
-
-                </button>
-            </div>
-            }
-
-        </div>}
-    </div>
+    }
 </div>

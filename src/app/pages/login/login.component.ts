@@ -3,25 +3,32 @@ import { Component, OnDestroy } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { BasketService } from '../../services/basket.service';
+import { HttpSentEvent } from '@angular/common/http';
+import { HttpService } from '../../services/http.service';
 
 @Component({
   selector: 'app-login',
   standalone: true,
   imports: [CommonModule, FormsModule],
   templateUrl: './login.component.html',
-  styleUrl: './login.component.scss'
+  styleUrl: './login.component.scss',
+  providers: [HttpService]
+
 })
 export class LoginComponent implements OnDestroy {
-  email: string = 'admin';
-  password: string = 'admin';
+  username: string = 'emilys';
+  password: string = 'emilyspass';
   errorMessage: string = '';
   
 
-  constructor(private router: Router, private basketService: BasketService) {}
+  constructor(private router: Router, private basketService: BasketService, private httpService: HttpService) {}
 
   login(): void {
+    this.httpService.logIn(this.username, this.password).subscribe((response)=> {
+      console.log(response)
+    })
 
-    if (this.email === 'admin' && this.password === 'admin') {
+    if (this.username === 'emilys' && this.password === 'emilyspass') {
       if(sessionStorage.getItem('tempProduct')) {
         this.basketService.addToBasket(JSON.parse(sessionStorage.getItem('tempProduct')!))
       }
