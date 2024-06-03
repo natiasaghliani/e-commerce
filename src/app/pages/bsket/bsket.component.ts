@@ -52,7 +52,4 @@ export class BsketComponent {
     return this.basketService.totalPrice()
   }
 
-  // goToHome() {
-  //   this.router.navigate(['']);
-  // }
 }

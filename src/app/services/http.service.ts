@@ -11,7 +11,7 @@ export class HttpService {
 
   constructor(private http: HttpClient, private basketService: BasketService) {}
 
-  setAllProduct() {
+  setAllProduct(): void {
     this.getAllProduct().subscribe((response: any) => {
       this.productsData = response.products;
       this.basketService.basketProducts.forEach((product) => {
@@ -32,17 +32,17 @@ export class HttpService {
     return this.http.get(url);
   }
 
-  getProductById(id: string) {
+  getProductById(id: string): Observable<any> {
     const url = 'https://dummyjson.com/products/' + id;
     return this.http.get(url);
   }
 
-  getCategories() {
+  getCategories(): Observable<any> {
     const url = 'https://dummyjson.com/products/category-list';
     return this.http.get(url);
   }
 
-  getProductByCategory(category: string = '', limit: string | number, skip: string | number) {
+  getProductByCategory(category: string = '', limit: string | number, skip: string | number): Observable<any> {
     let url = null;
     if (category) {
       url = `https://dummyjson.com/products/category/${category}?limit=${limit}&skip=${skip}`;
@@ -52,20 +52,19 @@ export class HttpService {
     return this.http.get(url);
   }
 
-  getPagination() {
+  getPagination(): Observable<any> {
     const url = 'https://dummyjson.com/products?limit=10&skip=10&select=title,price';
     return this.http.get(url);
   }
 
-  getSearchResult(keyword: string, skip: string | number) {
+  getSearchResult(keyword: string, skip: string | number): Observable<any> {
     const url = `https://dummyjson.com/products/search?q=${keyword}&skip=${skip}&limit=8`;
     return this.http.get(url);
   }
 
-  logIn(username: string, password: string) {
+  logIn(username: string, password: string): Observable<any> {
     const url = `https://dummyjson.com/auth/login`;
     return this.http.post(url, {username, password})
   }
 
-  ngOnInit() {}
 }

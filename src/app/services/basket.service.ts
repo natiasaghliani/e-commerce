@@ -72,13 +72,13 @@ export class BasketService {
     if (product.quantity === 1) {
       const totalPrice = product.price
 
-      return totalPrice
+      return +totalPrice?.toFixed(2)
     }else if(product.quantity > 1) {
      const totalPrice = product.price * product.quantity
 
-     return totalPrice
+     return +totalPrice.toFixed(2)
     }
-    return product.price
+    return +product.price.toFixed(2)
     
   }
 
